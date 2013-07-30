@@ -31,12 +31,16 @@ class Configuration implements ConfigurationInterface
         ->scalarNode( 'client_secret' )->cannotBeEmpty( )->end( ) // client secret
         ->scalarNode( 'callback_route' )->cannotBeEmpty( )->end( ) // redirect callback
         ->scalarNode( 'callback_url' )->isRequired( )->cannotBeEmpty( )->end( ) // redirect callback
-        ->arrayNode( 'scopes' )->prototype( 'scalar' )->isRequired( )->end( )->end( ) // scopes
+        ->arrayNode( 'scopes' )->addDefaultsIfNotSet( )->children( ) // scopes by api
+        ->arrayNode( 'openid' )->prototype( 'scalar' )->isRequired( )->end( )->end( ) // openid
+        ->booleanNode( 'contact' )->defaultValue( True )->end( )->end( ) // contact
+        ->end( ) // end scopes by api
         ->scalarNode( 'state' )->defaultValue( 'auth' )->end( ) // default state auth
         ->scalarNode( 'access_type' )->defaultValue( 'online' )->end( ) // default acess type online
         ->scalarNode( 'approval_prompt' )->defaultValue( 'auto' )->end( ) // 
         ->arrayNode( 'class' )->addDefaultsIfNotSet( )->children( ) // clasess
         ->scalarNode( 'api' )->defaultValue( 'BIT\GoogleBundle\Google\GoogleSessionPersistence' )->end( ) // api
+        ->scalarNode( 'contact' )->defaultValue( 'BIT\GoogleBundle\Google\GoogleContact' )->end( ) // contact
         ->scalarNode( 'helper' )->defaultValue( 'BIT\GoogleBundle\Templating\Helper\GoogleHelper' )->end( ) // template helper
         ->scalarNode( 'twig' )->defaultValue( 'BIT\GoogleBundle\Twig\Extension\GoogleExtension' )->end( ) // twig ext
         ->end( ) // end clasess

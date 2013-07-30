@@ -19,6 +19,9 @@
 			</argument>
 			<argument type="service" id="session" />
 		</service>
+		<service id="bit_google.contact" class="%bit_google.contact.class%">
+			<argument type="service" id="bit_google.api" />
+		</service>
 		<service id="bit_google.helper" class="%bit_google.helper.class%">
 			<argument type="service" id="templating" />
 			<argument type="service" id="bit_google.api" />

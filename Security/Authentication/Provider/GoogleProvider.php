@@ -18,6 +18,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use BIT\GoogleBundle\Security\User\UserManagerInterface;
 use BIT\GoogleBundle\Security\Authentication\Token\GoogleUserToken;
+use BIT\GoogleBundle\Google\GoogleSessionPersistence;
 
 class GoogleProvider implements AuthenticationProviderInterface
 {
@@ -27,8 +28,8 @@ class GoogleProvider implements AuthenticationProviderInterface
   protected $userChecker;
   protected $createIfNotExists;
   
-  public function __construct( $providerKey, $googleApi, UserProviderInterface $userProvider = null,
-      UserCheckerInterface $userChecker = null, $createIfNotExists = false )
+  public function __construct( $providerKey, GoogleSessionPersistence $googleApi,
+      UserProviderInterface $userProvider = null, UserCheckerInterface $userChecker = null, $createIfNotExists = false )
   {
     $errorMessage = '$userChecker cannot be null, if $userProvider is not null.';
     if ( null !== $userProvider && null === $userChecker )
@@ -69,6 +70,9 @@ class GoogleProvider implements AuthenticationProviderInterface
       $userData = $this->googleApi->getOAuth( )->userinfo->get( );
       if ( $uid = $userData[ "id" ] )
       {
+        $this->googleApi->setPersistentData( 'access_token', $this->googleApi->getAccessToken( ) );
+        $this->googleApi->setPersistentData( 'user_id', $uid );
+        
         $newToken = $this->createAuthenticatedToken( $uid );
         $newToken->setAttributes( $token->getAttributes( ) );
         

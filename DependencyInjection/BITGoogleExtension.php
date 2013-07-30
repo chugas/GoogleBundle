@@ -31,7 +31,7 @@ class BITGoogleExtension extends Extension
     if ( isset( $config[ 'alias' ] ) )
       $container->setAlias( $config[ 'alias' ], 'bit_google.api' );
     
-    foreach ( array( 'api', 'helper', 'twig' ) as $attribute )
+    foreach ( array( 'api', 'contact', 'helper', 'twig' ) as $attribute )
       $container->setParameter( 'bit_google.' . $attribute . '.class', $config[ 'class' ][ $attribute ] );
     
     foreach ( array( 'app_name', 'client_id', 'client_secret', 'state', 'access_type', 'approval_prompt', 'scopes' ) as $attribute )
