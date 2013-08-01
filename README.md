@@ -136,7 +136,7 @@ to the provider id in the "provider" section in the config.yml:
 	  class: class: Acme\MyBundle\Security\User\Provider\googleProvider
 	  arguments:
 	      google: @bit_google.api
-	      userManager: @bit_user.user_manager
+	      userManager: @fos_user.user_manager
 	      validator: @validator
 	      em: @doctrine.orm.entity_manager
 
