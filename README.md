@@ -55,7 +55,9 @@ Installation
       	    client_secret: s3cr3t
       	    state: auth
       	    access_type: online
-      	    scopes: [userinfo.email, userinfo.profile]
+      	    scopes: 
+      	       openid: [email, profile]
+      	       contact: true // optional or you can set it as false
       	    approval_prompt: auto
       	    callback_url: http://yourdomain.com/login_check
       	    
