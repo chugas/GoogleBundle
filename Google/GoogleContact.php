@@ -22,10 +22,10 @@ class GoogleContact
 {
   private $api;
   
-  public function __construct( GoogleSessionPersistence $api )
+  public function __construct( GoogleSessionPersistence $api, $request )
   {
     $this->api = $api;
-    $this->api->setAccessToken( $this->api->getPersistentData( 'access_token' ) );
+    $this->api->authenticate($request->get('code'));
   }
   
   private function parse( $string )

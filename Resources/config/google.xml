@@ -1,36 +1,37 @@
 <?xml version="1.0" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-	<services>
+  <services>
 
-		<service id="bit_google.api" class="%bit_google.api.class%">
-			<argument type="collection">
-				<argument key="app_name">%bit_google.app_name%</argument>
-				<argument key="client_id">%bit_google.client_id%</argument>
-				<argument key="client_secret">%bit_google.client_secret%</argument>
-				<argument key="state">%bit_google.state%</argument>
-				<argument key="access_type">%bit_google.access_type%</argument>
-				<argument key="scopes">%bit_google.scopes%</argument>
-				<argument key="approval_prompt">%bit_google.approval_prompt%</argument>
-				<argument key="callback_url">%bit_google.callback_url%</argument>
-			</argument>
-			<argument type="service" id="session" />
-		</service>
-		<service id="bit_google.contact" class="%bit_google.contact.class%">
-			<argument type="service" id="bit_google.api" />
-		</service>
-		<service id="bit_google.helper" class="%bit_google.helper.class%">
-			<argument type="service" id="templating" />
-			<argument type="service" id="bit_google.api" />
-			<tag name="templating.helper" alias="google" />
-		</service>
-		<service id="bit_google.twig" class="%bit_google.twig.class%">
-			<argument type="service" id="service_container" />
-			<tag name="twig.extension" />
-		</service>
+    <service id="bit_google.api" class="%bit_google.api.class%">
+      <argument type="collection">
+        <argument key="app_name">%bit_google.app_name%</argument>
+        <argument key="client_id">%bit_google.client_id%</argument>
+        <argument key="client_secret">%bit_google.client_secret%</argument>
+        <argument key="state">%bit_google.state%</argument>
+        <argument key="access_type">%bit_google.access_type%</argument>
+        <argument key="scopes">%bit_google.scopes%</argument>
+        <argument key="approval_prompt">%bit_google.approval_prompt%</argument>
+        <argument key="callback_url">%bit_google.callback_url%</argument>
+      </argument>
+      <argument type="service" id="session" />
+    </service>
+    <service id="bit_google.contact" class="%bit_google.contact.class%" scope="request">
+      <argument type="service" id="bit_google.api" />
+      <argument type="service" id="request" />   
+    </service>
+    <service id="bit_google.helper" class="%bit_google.helper.class%">
+      <argument type="service" id="templating" />
+      <argument type="service" id="bit_google.api" />
+      <tag name="templating.helper" alias="google" />
+    </service>
+    <service id="bit_google.twig" class="%bit_google.twig.class%">
+      <argument type="service" id="service_container" />
+      <tag name="twig.extension" />
+    </service>
 
-	</services>
+  </services>
 </container>
